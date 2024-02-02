@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(
+            function () {
+
+                function handleResponse(data, status) {
+                    if (status != 'success')
+                        alert("WOAH! The Magic isn't flowing right now. Try later.");
+                    else {
+                        $('#answer').text(data);
+                    }
+                }
+
+                $('button').click(
+                    function (event) {
+                        event.preventDefault();
+                        let question = $('#question').val();
+                        let payload = { "question": question };
+                        $.post('/ask', payload, handleResponse);
+                    });
+					
+            });
+    </script>
+</head>
+
+<body>
+    <form>
+        <label for="question">Ask the Magic 8 Ball your deepest desire:</label><br>
+        <em>(in the form of a yes or no question)</em>
+        <br>
+        <br>
+        <input type="text" id="question"> <button>Ask</button>
+        <p id="answer"></p>
+    </form>
+</body>
+
+</html>
