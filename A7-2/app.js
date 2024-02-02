@@ -1,10 +1,17 @@
 const fs = require('fs');
-let data = 'Hello, World!';
-fs.appendFile('helloworld.txt', data, (err) => {
-    if (err) {
-        throw err;
-    } 
-    else {
-        console.log('Data is written');
-    }
+const TestApplication = require('./logger.js');
+
+let testapplication = new TestApplication();
+testapplication.on('loadApplication', () => {
+    let data = 'Application loaded!\n';
+    fs.appendFile('logger.txt', data, (err) => {
+        if (err) {
+            throw err;
+        }
+        else {
+            console.log('Finished!');
+        }
+    });
 });
+
+testapplication.loadApplication('Application is loading...');
